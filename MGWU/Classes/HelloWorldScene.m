@@ -38,9 +38,36 @@ CCSprite *ship2;
         //Add the ships to the game
         [self addChild:ship1];
         [self addChild:ship2];
+        
+        //Allow player to interact with this scene
+        self.userInteractionEnabled = TRUE;
     }
     
 	return self;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    // 'touches' will only contain one touch, because we aren't using multitouch
+    UITouch *touch = [touches anyObject];
+    
+    // we want to know the location of our touch in this scene
+    CGPoint touchLocation = [touch locationInNode:self];
+    
+    // move the ship animated to the touch position
+    [ship2 runAction: [CCActionMoveTo actionWithDuration:1.f position:touchLocation]];
+}
+
+//method gets called every frame on every of your scenes
+- (void)update:(CCTime)delta
+{
+    //move the ship only in the x direction by a fixed amount every frame
+    ship1.position = ccp( ship1.position.x + 100*delta, ship1.position.y );
+    
+    if (ship1.position.x > self.contentSize.width+32)
+    {
+        //if the ship reaches the edge of the screen, loop around
+        ship1.position = ccp( -32, ship1.position.y);
+    }
 }
 
 @end
