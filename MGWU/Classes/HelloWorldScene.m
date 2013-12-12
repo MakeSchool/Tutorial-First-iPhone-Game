@@ -11,6 +11,8 @@
 
 @implementation HelloWorldScene
 
+CCSprite *ship1;
+CCSprite *ship2;
 
 + (HelloWorldScene *)scene
 {
@@ -21,12 +23,23 @@
 {
     if (self = [super init])
     {
-        CCLabelTTF *helloWorld = [CCLabelTTF labelWithString:@"Hello cocos2d 3.0!" fontName:@"Arial" fontSize:48];
-        helloWorld.positionType = CCPositionTypeNormalized;
-        helloWorld.position = ccp(0.5f, 0.5f);
+        //Initialize the ship sprite with a specific file, the ship image
+        ship1 = [CCSprite spriteWithImageNamed: @"ship.png"];
         
-        [self addChild:helloWorld];
+        //Set the ship's position. (0,0) is at the bottom left
+        ship1.position = ccp( 50, 200 );
+        
+        //Initialize the other sprite
+        ship2 = [CCSprite spriteWithImageNamed: @"ship.png"];
+        
+        //Set the other ship's position
+        ship2.position = ccp( 100, 50 );
+        
+        //Add the ships to the game
+        [self addChild:ship1];
+        [self addChild:ship2];
     }
+    
 	return self;
 }
 
